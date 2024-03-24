@@ -13,8 +13,9 @@
         android:theme="@style/Theme.MyMIIGAiK"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name="com.example.mymiigaik.ui.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
