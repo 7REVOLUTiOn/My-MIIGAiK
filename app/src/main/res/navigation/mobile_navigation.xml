@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_schedule"
-        android:name="com.example.mymiigaik.ui.profile.ProfileFragment"
+        android:name="com.example.mymiigaik.ui.schedule.ScheduleFragment"
         android:label="@string/title_schedule"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.mymiigaik.ui.schedule.ScheduleFragment"
+        android:name="com.example.mymiigaik.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_scgedule" />
 </navigation>

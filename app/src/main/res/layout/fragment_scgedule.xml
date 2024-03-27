@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.schedule.ScgeduleFragment">
+    tools:context="com.example.mymiigaik.ui.schedule.ScheduleFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/showOrHideMenuButtonTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/show_the_menu_schedule"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.946"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/showTheScheduleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_the_schedule"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/searchGroupButton"
+        app:layout_constraintTop_toBottomOf="@+id/showOrHideMenuButtonTextView" />
+
+    <Button
+        android:id="@+id/searchGroupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:backgroundTint="@color/dark_blue_button_search_miigaik"
+        android:text="@string/search_schedule_group_button"
+        android:textColor="@color/white_text_button_search_miigaik"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/searchTeacherButton"
+        app:layout_constraintEnd_toStartOf="@+id/searchTeacherButton"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showTheScheduleTextView" />
+
+ <Button
+        android:id="@+id/searchTeacherButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/grey_button_search_miigaik"
+        android:text="@string/search_schedule_teacher_button"
+        android:textColor="@color/dark_grey_text_button_search_miigaik"
+        app:layout_constraintEnd_toStartOf="@id/searchAuditoriumButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/searchGroupButton"
+        app:layout_constraintTop_toTopOf="@+id/searchGroupButton"
+        android:layout_marginLeft="5dp"
+        android:textSize="11sp"/>
+
+    <Button
+        android:id="@+id/searchAuditoriumButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="40dp"
+        android:backgroundTint="@color/grey_button_search_miigaik"
+        android:text="@string/search_schedule_auditorium_button"
+        android:textColor="@color/dark_grey_text_button_search_miigaik"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTeacherButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/searchTeacherButton"
+        app:layout_constraintTop_toTopOf="@+id/searchGroupButton" />
+
+
+    <Button
+        android:id="@+id/searchExamsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/grey_button_search_miigaik"
+        android:text="@string/search_schedule_exams_button"
+        android:textColor="@color/dark_grey_text_button_search_miigaik"
+        android:textSize="11sp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="@id/searchGroupButton"
+        app:layout_constraintTop_toBottomOf="@id/searchGroupButton" />
+
+    <TextView
+        android:id="@+id/nameOfSearchTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/searchExamsButton"
+        app:layout_constraintStart_toStartOf="@id/searchExamsButton"
+        android:text="@string/name_of_search_group"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_background"
+        android:layout_marginRight="10dp"
+        android:hint="Введите группу:"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/nameOfSearchTextView"
+        app:layout_constraintTop_toBottomOf="@+id/nameOfSearchTextView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

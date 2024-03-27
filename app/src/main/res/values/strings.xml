@@ -4,6 +4,17 @@
     <string name="title_news">Новости</string>
     <string name="title_schedule">Расписание</string>
     <string name="title_profile">Профиль</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_schedule_group_button">Групп</string>
+    <string name="search_schedule_teacher_button">Преподавателей</string>
+    <string name="search_schedule_auditorium_button">Аудиторий</string>
+    <string name="search_schedule_exams_button">Экзаменов</string>
+    <string name="show_the_schedule">Показывать расписание</string>
+    <string name="show_the_menu_schedule"><u>Показать меню</u></string>
+    <string name="hide_the_menu_schedule"><u>Скрыть меню</u></string>
+    <string name="name_of_search_group">Группа</string>
+    <string name="name_of_search_teacher">Преподаватель</string>
+    <string name="name_of_search_auditorium">Аудитория</string>
+    <string name="name_of_search_exams">Экзаменов</string>
+
 </resources>
