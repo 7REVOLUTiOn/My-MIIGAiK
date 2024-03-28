@@ -123,5 +123,16 @@
         app:layout_constraintStart_toStartOf="@+id/nameOfSearchTextView"
         app:layout_constraintTop_toBottomOf="@+id/nameOfSearchTextView" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editText"
+        tools:listitem="@layout/teacher_item"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

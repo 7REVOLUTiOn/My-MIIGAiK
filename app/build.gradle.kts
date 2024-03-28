@@ -34,6 +34,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }
@@ -58,6 +59,25 @@ dependencies {
     // ViewBinding delegate 
     implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.3")
 
+    //LiveData + ViewModel
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+
+
+
+    // KOIN
+    implementation ("io.insert-koin:koin-core:2.0.1")
+    implementation ("io.insert-koin:koin-android:2.0.1")
+    implementation ("io.insert-koin:koin-androidx-scope:2.0.1")
+    // or Koin for Android Architecture ViewModel
+    implementation ("io.insert-koin:koin-androidx-viewmodel:2.0.1")
+
+
+    // testKoin
+    testImplementation ("com.nhaarman:mockito-kotlin:1.5.0")
+    testImplementation ("androidx.arch.core:core-testing:2.1.0") // Test helpers for LiveData
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.1")
+    testImplementation ("io.insert-koin:koin-test:2.0.1")
 
 
 }
