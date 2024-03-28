@@ -1,11 +1,16 @@
 package com.example.mymiigaik.ui.schedule
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.myapplication.R
+import com.example.myapplication.databinding.FragmentScgeduleBinding
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,6 +42,41 @@ class ScheduleFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_scgedule, container, false)
+    }
+
+    private val binding by viewBinding(FragmentScgeduleBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.showOrHideMenuButtonTextView.setOnClickListener {
+            when (binding.showOrHideMenuButtonTextView.text) {
+                getString(R.string.show_the_menu_schedule) ->  binding.showOrHideMenuButtonTextView.setText(R.string.hide_the_menu_schedule)
+                getString(R.string.hide_the_menu_schedule) ->  binding.showOrHideMenuButtonTextView.setText(R.string.show_the_menu_schedule)
+            } //todo - доделать чтобы показывалось (скрыть меню/показать меню)
+
+            if (binding.showOrHideMenuButtonTextView.text == getString(R.string.show_the_menu_schedule))
+            //binding.showOrHideMenuButtonTextView.setText(R.string.hide_the_menu_schedule)
+            when (binding.advancedSearchSelection.visibility){
+                View.GONE -> binding.advancedSearchSelection.visibility = View.VISIBLE
+                View.VISIBLE -> binding.advancedSearchSelection.visibility = View.GONE
+                //todo() - можно посмотреть что будет если использовать isVisible и обязательно найти отличия
+            }
+        }
+
+        binding.searchGroupButton.setOnClickListener {
+            binding.searchGroupButton.setTextColor(R.color.white_text_button_search_miigaik)
+            binding.searchExamsButton.setBackgroundColor(R.color.dark_blue_button_search_miigaik)
+            binding.searchTeacherButton.setTextColor(R.color.grey_button_search_miigaik)
+            binding.searchTeacherButton.setBackgroundColor(R.color.dark_grey_text_button_search_miigaik)
+            binding.searchAuditoriumButton.setTextColor(R.color.grey_button_search_miigaik)
+            binding.searchAuditoriumButton.setBackgroundColor(R.color.dark_grey_text_button_search_miigaik)
+            binding.searchExamsButton.setTextColor(R.color.grey_button_search_miigaik)
+            binding.searchExamsButton.setBackgroundColor(R.color.dark_grey_text_button_search_miigaik)
+        }
+        //todo() - доделать, чтобы при нажатии на другой вариант поиска цвета сбрасывались, а выбранное значение сохранялось до преркащения работы приложения
+
+
     }
 
     companion object {
