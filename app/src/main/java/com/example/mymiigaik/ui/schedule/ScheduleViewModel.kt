@@ -1,5 +1,6 @@
 package com.example.mymiigaik.ui.schedule
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,11 +26,12 @@ class ScheduleViewModel(
 
     fun getAllTeachersByName(teacherName: String) {
         viewModelScope.launch {
-            getAllTeachersByUserInputUseCase(teacherName)
+            getAllTeacherByUserInput(teacherName)
         }
     }
 
-    suspend fun getAllTeacherByUserInput(teacherName: String) = withContext(Dispatchers.IO) {
+    suspend fun getAllTeacherByUserInput(teacherName: String) = withContext(Dispatchers.Main) {
+        Log.d("АУЕ", "Запросили список")
         val listOfTeacherSearchEntity = getAllTeachersByUserInputUseCase.invoke(teacherName)
         when (listOfTeacherSearchEntity) {
             is TRezult.Success -> {

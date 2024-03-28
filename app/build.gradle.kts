@@ -63,7 +63,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
 
-
+    //Retrofit + OkHttp
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.5.0") // TODO: что будет если удалить
 
     // KOIN
     implementation ("io.insert-koin:koin-core:2.0.1")
@@ -79,5 +82,6 @@ dependencies {
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.1")
     testImplementation ("io.insert-koin:koin-test:2.0.1")
 
-
+    //Gson converter
+    implementation ("com.google.code.gson:gson:2.10.1")
 }
