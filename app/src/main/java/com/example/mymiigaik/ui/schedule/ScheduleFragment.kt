@@ -32,7 +32,11 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
 
 
         viewModel.teachersList.observe(liveDataOwner){
-
+            val teacherItemList = it.map { teacherEntity ->
+                TeacherItem(teacherName = teacherEntity.name, scheduleLinkOfTeacher = teacherEntity.scheduleLink, isPicked = viewModel.teacherIsPicked(scheduleLink = teacherEntity.scheduleLink))
+                //todo доразобраться с нажатием
+            }
+            recyclerViewAdapter.update(teacherItemList)
         }
 
 
@@ -58,7 +62,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
             }
         }
 
-
+        //todo() - сделать, что при скрытие меню убирался и обнулялся RecyclerView
         //todo() - доделать, чтобы при нажатии на другой вариант поиска цвета сбрасывались, а выбранное значение сохранялось до преркащения работы приложения
 
 

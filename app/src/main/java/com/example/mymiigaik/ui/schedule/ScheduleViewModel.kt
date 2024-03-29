@@ -39,12 +39,17 @@ class ScheduleViewModel(
         when (listOfTeacherSearchEntity) {
             is TRezult.Success -> {
                 _teachersList.mValue = listOfTeacherSearchEntity.data
+                Log.d("АУЕ","${listOfTeacherSearchEntity.data}")
             }
 
             is TRezult.Error -> {
                 _error.mValue = listOfTeacherSearchEntity.exception
             }
         }
+    }
+
+     fun teacherIsPicked(scheduleLink: String){
+
     }
 
 
