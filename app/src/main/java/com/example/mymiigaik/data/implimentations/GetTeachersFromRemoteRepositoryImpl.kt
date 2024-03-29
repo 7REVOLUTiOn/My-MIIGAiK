@@ -1,5 +1,6 @@
 package com.example.mymiigaik.data.implimentations
 
+import android.util.Log
 import com.example.mymiigaik.data.beans.TeacherBean
 import com.example.mymiigaik.data.mappers.mappersForSchedule.TeactherBeanToTeacherSeachEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.TeacherSearchEntity
@@ -18,7 +19,9 @@ class GetTeachersFromRemoteRepositoryImpl(
     override suspend fun getTeachersFromRemoteRepositoryImpl(name: String): TRezult<List<TeacherSearchEntity>> =
         withContext(Dispatchers.IO){
             return@withContext runCatching {
+                Log.d("АУЕ","Кинули запрос прямо в апи")
                 val listOfTeachersFromRemoteRepository = getTeachersFromRemoteRepositoryAPI.invoke(name)
+                Log.d("АУЕ","Поймали ответ ${listOfTeachersFromRemoteRepository.get(0)} ")
                 val teacherBeanToTeacherSearchEntityMapper = TeactherBeanToTeacherSeachEntity().teacherBeanItem
 
                 val listOfTRezultTeachers = listOfTeachersFromRemoteRepository.mapNotNull {

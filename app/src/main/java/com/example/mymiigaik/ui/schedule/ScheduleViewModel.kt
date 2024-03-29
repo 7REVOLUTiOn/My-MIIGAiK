@@ -26,7 +26,10 @@ class ScheduleViewModel(
 
     fun getAllTeachersByName(teacherName: String) {
         viewModelScope.launch {
-            getAllTeacherByUserInput(teacherName)
+            if (teacherName.isNotEmpty()){
+                getAllTeacherByUserInput(teacherName)
+            }
+
         }
     }
 

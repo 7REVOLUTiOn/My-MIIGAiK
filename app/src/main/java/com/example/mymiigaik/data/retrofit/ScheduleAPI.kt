@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface ScheduleAPI {
 
-    @GET("search/teacher-schedule?name=")
+    @GET("search/teacher-schedule")
     suspend fun getListOfTeachers(
         @Query("name") name:String
     ):List<TeacherBean>
@@ -23,7 +23,7 @@ interface ScheduleAPI {
                     isSafe = !BuildConfig.DEBUG
                 ).get()
                 val retrofit: Retrofit = Retrofit.Builder()
-                    .baseUrl("http://localhost:8080/api/v1/")
+                    .baseUrl("http://192.168.1.10:8080/api/v1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build()
