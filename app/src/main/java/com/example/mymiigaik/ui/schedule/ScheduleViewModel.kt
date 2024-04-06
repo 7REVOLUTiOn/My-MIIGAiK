@@ -21,8 +21,8 @@ class ScheduleViewModel(
     private val _teachersList = MutableLiveData<List<TeacherSearchEntity>>()
     val teachersList = _teachersList.asLiveData()
 
-    private val _error = MutableLiveData<SearchException>()
-    val error = _error.asLiveData()
+    private val _errorEmptyList = MutableLiveData<SearchException>()
+    val errorEmptyList = _errorEmptyList.asLiveData()
 
     private val dataTeacherList = mutableListOf<TeacherSearchEntity>()
 
@@ -75,12 +75,13 @@ class ScheduleViewModel(
                 Log.d("AYE","${listOfTeacherSearchEntity.data}")
                 _teachersList.mValue = listOfTeacherSearchEntity.data
                 Log.d("АУЕ", "${listOfTeacherSearchEntity.data}")
-                //TODO("Сделать, чтобы когда приходил пустой лист, у нас выводилось, что ничего нет")
             }
 
             is TRezult.Error -> {
-                _error.mValue = listOfTeacherSearchEntity.exception
 
+                _errorEmptyList.mValue = listOfTeacherSearchEntity.exception
+                //TODO("Сделать, чтобы когда приходил пустой лист, у нас выводилось, что ничего нет")
+                _teachersList.mValue = dataTeacherList
             }
         }
     }

@@ -2,6 +2,7 @@ package com.example.mymiigaik.ui.schedule
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -53,42 +54,49 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
 
             binding.nameOfSearchTextView.setText(R.string.name_of_search_group)
             binding.editText.setText("")
+            binding.editText.setHint("Введите группу")
             viewModel.installTypeOfSearch(TypeOfButtons.Groups)
         }
 
         binding.searchTeacherButton.setOnClickListener {
-            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_grey_text_button_search_miigaik))
             binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
             binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
             binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
-
-            binding.nameOfSearchTextView.setText(R.string.name_of_search_teacher)
             binding.editText.setText("")
+            binding.nameOfSearchTextView.setText(R.string.name_of_search_teacher)
+            binding.editText.setHint("Введите преподавателя")
             viewModel.installTypeOfSearch(TypeOfButtons.Teachers)
         }
 
         binding.searchAuditoriumButton.setOnClickListener {
-            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
             binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
             binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
             binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
 
             binding.nameOfSearchTextView.setText(R.string.name_of_search_auditorium)
-            binding.editText.setText("")
+            binding.editText.setHint("Введите номер аудитории")
             viewModel.installTypeOfSearch(TypeOfButtons.Classroom)
+            binding.editText.setText("")
         }
 
         binding.searchExamsButton.setOnClickListener {
-            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
             binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
             binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
             binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
 
             binding.nameOfSearchTextView.setText(R.string.name_of_search_exams)
-            binding.editText.setText("")
+            binding.editText.setHint("Введите группу")
             viewModel.installTypeOfSearch(TypeOfButtons.Exams)
+            binding.editText.setText("")
         }
 
+        viewModel.errorEmptyList.observe(liveDataOwner){
+            val toast = Toast.makeText(requireContext(),"Ничего не найдено", Toast.LENGTH_SHORT,)
+            toast.show()
+        }
 
         binding.showOrHideMenuButtonTextView.setOnClickListener {
             /*when (binding.showOrHideMenuButtonTextView.text) {
