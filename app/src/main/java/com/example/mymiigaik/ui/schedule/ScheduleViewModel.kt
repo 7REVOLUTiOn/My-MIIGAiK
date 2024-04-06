@@ -48,7 +48,7 @@ class ScheduleViewModel(
         }
     }
 
-     fun teacherIsPicked(scheduleLink: String){
+     fun teacherIsPicked(teacherSearchEntity: TeacherSearchEntity){
 
     }
 

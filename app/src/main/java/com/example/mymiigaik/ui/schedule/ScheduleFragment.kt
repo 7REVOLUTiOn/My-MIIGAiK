@@ -39,12 +39,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
             recyclerViewAdapter.update(teacherItemList)
         }
 
-
-
-
-
-
-
+        
 
 
         binding.showOrHideMenuButtonTextView.setOnClickListener {
