@@ -2,6 +2,7 @@ package com.example.mymiigaik.ui.schedule
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,20 +27,67 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
         binding.recyclerView.adapter = recyclerViewAdapter
 
         binding.editText.doAfterTextChanged {
-
-            viewModel.getAllTeachersByName(it.toString())
+            viewModel.setSearchText(it.toString())
         }
-
 
         viewModel.teachersList.observe(liveDataOwner){
             val teacherItemList = it.map { teacherEntity ->
-                TeacherItem(teacherName = teacherEntity.name, scheduleLinkOfTeacher = teacherEntity.scheduleLink, isPicked = viewModel.teacherIsPicked(scheduleLink = teacherEntity.scheduleLink))
+                TeacherItem(teacherName = teacherEntity.name, scheduleLinkOfTeacher = teacherEntity.scheduleLink, )
                 //todo доразобраться с нажатием
             }
             recyclerViewAdapter.update(teacherItemList)
         }
 
-        
+
+
+        viewModel.whatButtonIsPicked.observe(liveDataOwner){
+            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+        }
+
+
+        binding.searchGroupButton.setOnClickListener {
+            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+            binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+            binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+
+            binding.nameOfSearchTextView.setText(R.string.name_of_search_group)
+            binding.editText.setText("")
+            viewModel.installTypeOfSearch(TypeOfButtons.Groups)
+        }
+
+        binding.searchTeacherButton.setOnClickListener {
+            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+            binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+
+            binding.nameOfSearchTextView.setText(R.string.name_of_search_teacher)
+            binding.editText.setText("")
+            viewModel.installTypeOfSearch(TypeOfButtons.Teachers)
+        }
+
+        binding.searchAuditoriumButton.setOnClickListener {
+            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+            binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+
+            binding.nameOfSearchTextView.setText(R.string.name_of_search_auditorium)
+            binding.editText.setText("")
+            viewModel.installTypeOfSearch(TypeOfButtons.Classroom)
+        }
+
+        binding.searchExamsButton.setOnClickListener {
+            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+            binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+            binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+
+            binding.nameOfSearchTextView.setText(R.string.name_of_search_exams)
+            binding.editText.setText("")
+            viewModel.installTypeOfSearch(TypeOfButtons.Exams)
+        }
 
 
         binding.showOrHideMenuButtonTextView.setOnClickListener {

@@ -24,12 +24,46 @@ class ScheduleViewModel(
     private val _error = MutableLiveData<SearchException>()
     val error = _error.asLiveData()
 
-    fun getAllTeachersByName(teacherName: String) {
-        viewModelScope.launch {
-            if (teacherName.isNotEmpty()){
-                getAllTeacherByUserInput(teacherName)
-            }
+    private val dataTeacherList = mutableListOf<TeacherSearchEntity>()
 
+
+    private val _whatButtonIsPicked = MutableLiveData<TypeOfButtons>()
+    val whatButtonIsPicked = _whatButtonIsPicked.asLiveData()
+
+
+    fun setSearchText(searchText:String){
+        if (searchText.isEmpty()){
+            _teachersList.mValue = dataTeacherList
+        } else {
+            startTheSearch(searchText)
+        }
+    }
+
+    fun startTheSearch(inputOfUser: String) {
+        viewModelScope.launch {
+            if (inputOfUser.isNotEmpty()) {
+                when (whatButtonIsPicked.value) {
+                    TypeOfButtons.Groups -> {
+
+                    }
+
+                    TypeOfButtons.Teachers -> {
+                        getAllTeacherByUserInput(inputOfUser)
+                    }
+
+                    TypeOfButtons.Classroom -> {
+
+                    }
+
+                    TypeOfButtons.Classroom -> {
+
+                    }
+
+                    else -> {
+
+                    }
+                }
+            }
         }
     }
 
@@ -38,19 +72,25 @@ class ScheduleViewModel(
         val listOfTeacherSearchEntity = getAllTeachersByUserInputUseCase.invoke(teacherName)
         when (listOfTeacherSearchEntity) {
             is TRezult.Success -> {
+                Log.d("AYE","${listOfTeacherSearchEntity.data}")
                 _teachersList.mValue = listOfTeacherSearchEntity.data
-                Log.d("АУЕ","${listOfTeacherSearchEntity.data}")
+                Log.d("АУЕ", "${listOfTeacherSearchEntity.data}")
+                //TODO("Сделать, чтобы когда приходил пустой лист, у нас выводилось, что ничего нет")
             }
 
             is TRezult.Error -> {
                 _error.mValue = listOfTeacherSearchEntity.exception
+
             }
         }
     }
 
-     fun teacherIsPicked(teacherSearchEntity: TeacherSearchEntity){
+    fun teacherIsPicked(teacherSearchEntity: TeacherSearchEntity) {
 
     }
 
+    fun installTypeOfSearch(type: TypeOfButtons) {
+        _whatButtonIsPicked.mValue = type
+    }
 
 }
