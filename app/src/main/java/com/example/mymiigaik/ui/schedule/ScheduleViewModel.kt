@@ -10,6 +10,8 @@ import com.example.mymiigaik.utils.LiveDataUtils.mValue
 import com.example.mymiigaik.utils.SearchException
 import com.example.mymiigaik.utils.TRezult
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -30,9 +32,12 @@ class ScheduleViewModel(
     private val _whatButtonIsPicked = MutableLiveData<TypeOfButtons>()
     val whatButtonIsPicked = _whatButtonIsPicked.asLiveData()
 
+    private var searchJob: Job? = null
 
-    fun setSearchText(searchText:String){
-        if (searchText.isEmpty()){
+
+    fun setSearchText(searchText: String) {
+        if (searchText.isEmpty()) {
+            searchJob?.cancel()
             _teachersList.mValue = dataTeacherList
         } else {
             startTheSearch(searchText)
@@ -40,45 +45,41 @@ class ScheduleViewModel(
     }
 
     fun startTheSearch(inputOfUser: String) {
-        viewModelScope.launch {
-            if (inputOfUser.isNotEmpty()) {
-                when (whatButtonIsPicked.value) {
-                    TypeOfButtons.Groups -> {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(SEARCH_DELAY)
 
-                    }
+            when (whatButtonIsPicked.value) {
+                TypeOfButtons.Groups -> {
 
-                    TypeOfButtons.Teachers -> {
-                        getAllTeacherByUserInput(inputOfUser)
-                    }
-
-                    TypeOfButtons.Classroom -> {
-
-                    }
-
-                    TypeOfButtons.Classroom -> {
-
-                    }
-
-                    else -> {
-
-                    }
                 }
+
+                TypeOfButtons.Teachers -> {
+                    getAllTeacherByUserInput(inputOfUser)
+                }
+
+                TypeOfButtons.Classroom -> {
+
+                }
+
+                TypeOfButtons.Exams -> {
+
+                }
+
+                null -> {}
             }
+
         }
     }
 
     suspend fun getAllTeacherByUserInput(teacherName: String) = withContext(Dispatchers.Main) {
-        Log.d("АУЕ", "Запросили список")
         val listOfTeacherSearchEntity = getAllTeachersByUserInputUseCase.invoke(teacherName)
         when (listOfTeacherSearchEntity) {
             is TRezult.Success -> {
-                Log.d("AYE","${listOfTeacherSearchEntity.data}")
                 _teachersList.mValue = listOfTeacherSearchEntity.data
-                Log.d("АУЕ", "${listOfTeacherSearchEntity.data}")
             }
 
             is TRezult.Error -> {
-
                 _errorEmptyList.mValue = listOfTeacherSearchEntity.exception
                 //TODO("Сделать, чтобы когда приходил пустой лист, у нас выводилось, что ничего нет")
                 _teachersList.mValue = dataTeacherList
@@ -92,6 +93,14 @@ class ScheduleViewModel(
 
     fun installTypeOfSearch(type: TypeOfButtons) {
         _whatButtonIsPicked.mValue = type
+    }
+
+
+    companion object {
+
+        private const val SEARCH_DELAY = 700L
+
+
     }
 
 }

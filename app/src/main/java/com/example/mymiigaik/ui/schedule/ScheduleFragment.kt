@@ -53,9 +53,14 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
             binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
 
             binding.nameOfSearchTextView.setText(R.string.name_of_search_group)
-            binding.editText.setText("")
+            binding.editText.setText("") //todo - нажатие на каждую из трех кнопок говорит livedata  - что пора удалить текст и покрасить кнопку в нужные цвета, ставится hint
+            //одна в лайвдата с 4 енамами, и в зависимости от этого enuma ставится все
+            //todo - editext
+            //todo - отдельную лайдату для введего текста - чтобы она сеталась в edittext - когда новое значнеие
             binding.editText.setHint("Введите группу")
             viewModel.installTypeOfSearch(TypeOfButtons.Groups)
+
+
         }
 
         binding.searchTeacherButton.setOnClickListener {
