@@ -1,7 +1,6 @@
 package com.example.mymiigaik.domain.implemantations
 
-import com.example.mymiigaik.domain.entities.scheduleEntitise.TeacherSearchEntity
-import com.example.mymiigaik.data.IGetTeachersFromRemoteRepository
+import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.TeacherSearchEntity
 import com.example.mymiigaik.domain.interfaces.IGetListOfTeacherInteractor
 import com.example.mymiigaik.utils.TRezult
 import kotlinx.coroutines.Dispatchers

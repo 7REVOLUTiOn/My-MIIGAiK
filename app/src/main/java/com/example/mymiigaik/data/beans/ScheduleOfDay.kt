@@ -1,5 +1,6 @@
 package com.example.mymiigaik.data.beans
 
+/*
 data class para(
     val a:String,
     val b:String,
@@ -52,4 +53,4 @@ enum class weekTypes(){
 
 enum class DayOfWeek(
     monday,tueda
-)
+)*/

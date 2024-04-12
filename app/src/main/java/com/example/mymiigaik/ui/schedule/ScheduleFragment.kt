@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentScgeduleBinding
+import com.example.mymiigaik.ui.schedule.ItemsForRecyclerView.TeacherItem
 import com.example.mymiigaik.utils.LiveDataUtils.liveDataOwner
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -33,10 +34,16 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
 
         viewModel.teachersList.observe(liveDataOwner){
             val teacherItemList = it.map { teacherEntity ->
-                TeacherItem(teacherName = teacherEntity.name, scheduleLinkOfTeacher = teacherEntity.scheduleLink, )
+                TeacherItem(teacherName = teacherEntity.name, scheduleLinkOfTeacher = teacherEntity.scheduleLink){
+                    viewModel.teacherIsPicked(teacherEntity.scheduleLink)
+                }
                 //todo доразобраться с нажатием
             }
             recyclerViewAdapter.update(teacherItemList)
+        }
+
+        viewModel.scheduler.observe(liveDataOwner){
+
         }
 
 

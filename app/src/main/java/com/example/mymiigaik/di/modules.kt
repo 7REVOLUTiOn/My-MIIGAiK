@@ -1,10 +1,11 @@
 package com.example.mymiigaik.di
 
-import com.example.mymiigaik.data.implimentations.GetTeachersFromRemoteRepositoryImpl
+import com.example.mymiigaik.data.implimentations.TeachersRemoteRepository
 import com.example.mymiigaik.data.mappers.mappersForSchedule.TeactherBeanToTeacherSeachEntity
 import com.example.mymiigaik.data.retrofit.ScheduleAPI
 import com.example.mymiigaik.domain.implemantations.GetListOfTeachersInteractorImpl
-import com.example.mymiigaik.data.IGetTeachersFromRemoteRepository
+import com.example.mymiigaik.data.ITeacherRemoteRepository
+import com.example.mymiigaik.data.mappers.mappersForSchedule.TeacherScheduleBeanToScheduleEntityMapper
 import com.example.mymiigaik.domain.interfaces.IGetListOfTeacherInteractor
 import com.example.mymiigaik.ui.schedule.ScheduleViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,17 +16,20 @@ val repositories = module {
 
     factory<ScheduleAPI> { ScheduleAPI.getInstance() }
 
-    factory <IGetTeachersFromRemoteRepository>{
+    factory <ITeacherRemoteRepository>{
         val api = get<ScheduleAPI>()
         val beanMapper = TeactherBeanToTeacherSeachEntity()
-        GetTeachersFromRemoteRepositoryImpl(
+        val beanScheduleToEntity = TeacherScheduleBeanToScheduleEntityMapper()
+        TeachersRemoteRepository(
             getTeachersFromRemoteRepositoryAPI = api::getListOfTeachers,
-            teacherBeanToTeacherSearchEntityMapper =  beanMapper.teacherBeanItem
+            getTeacherScheduleBeanFromRemoteRepositoryAPI = api::getTeacherScheduleById,
+            teacherBeanToTeacherSearchEntityMapper =  beanMapper.teacherBeanItem,
+            teacherScheduleBeanToTeacherSchedule = beanScheduleToEntity.teacherBeanItem
         )
     }
 
     factory<IGetListOfTeacherInteractor> {
-        val remoteRep = get<IGetTeachersFromRemoteRepository>()
+        val remoteRep = get<ITeacherRemoteRepository>()
 
         GetListOfTeachersInteractorImpl(
             getListOfTeachersFromRemoteRepUseCase = remoteRep::getTeachersFromRemoteRepositoryImpl
@@ -36,8 +40,10 @@ val repositories = module {
 
     viewModel<ScheduleViewModel> {
         val getAllTeachersByUserInputUseCase = get<IGetListOfTeacherInteractor>()
+        val getTeacherSchedule = get<ITeacherRemoteRepository>()
         ScheduleViewModel(
-            getAllTeachersByUserInputUseCase = getAllTeachersByUserInputUseCase::getTeachersFromRemoteRepositoryImpl
+            getAllTeachersByUserInputUseCase = getAllTeachersByUserInputUseCase::getTeachersFromRemoteRepositoryImpl,
+            getTeacherScheduleByPicked = getTeacherSchedule::getTeacherScheduleFromRemoteRepository
         )
     }
 

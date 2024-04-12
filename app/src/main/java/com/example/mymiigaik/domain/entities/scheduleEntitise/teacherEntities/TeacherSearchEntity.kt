@@ -1,4 +1,4 @@
-package com.example.mymiigaik.domain.entities.scheduleEntitise
+package com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities
 
 data class TeacherSearchEntity(
     val name:String,

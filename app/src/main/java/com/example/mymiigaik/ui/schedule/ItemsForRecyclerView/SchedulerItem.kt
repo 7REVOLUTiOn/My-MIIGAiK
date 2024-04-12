@@ -1,13 +1,14 @@
-package com.example.mymiigaik.ui.schedule
+package com.example.mymiigaik.ui.schedule.ItemsForRecyclerView
 
 import com.example.myapplication.R
 import com.example.myapplication.databinding.TeacherItemBinding
+import com.example.mymiigaik.ui.schedule.RecyclerViewAdapter
 
-class TeacherItem(
-    private val teacherName:String,
+class SchedulerItem(
+    private val teacherName: String,
     private val scheduleLinkOfTeacher: String,
-   // private val isPicked: (teacherLink:String) -> Unit
-):RecyclerViewAdapter.Item {
+    private val isPicked: (teacherLink: String) -> Unit
+) : RecyclerViewAdapter.Item {
 
 
     override fun getItemViewType(): Int = R.layout.teacher_item
@@ -18,7 +19,7 @@ class TeacherItem(
             binding.teacher.text = teacherName
         }
         holder.itemView.setOnClickListener {
-           // isPicked(scheduleLinkOfTeacher)
+            isPicked(scheduleLinkOfTeacher)
         }
     }
 

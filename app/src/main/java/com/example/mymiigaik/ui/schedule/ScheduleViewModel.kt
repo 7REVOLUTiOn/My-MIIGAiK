@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mymiigaik.domain.entities.scheduleEntitise.TeacherSearchEntity
+import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.SchedulerEntity
+import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.TeacherSearchEntity
 import com.example.mymiigaik.utils.LiveDataUtils.asLiveData
 import com.example.mymiigaik.utils.LiveDataUtils.mValue
 import com.example.mymiigaik.utils.SearchException
@@ -16,12 +17,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ScheduleViewModel(
-    private val getAllTeachersByUserInputUseCase: suspend (name: String) -> TRezult<List<TeacherSearchEntity>> // Запрос на получение листа имен преподавателей
+    private val getAllTeachersByUserInputUseCase: suspend (name: String) -> TRezult<List<TeacherSearchEntity>>, // Запрос на получение листа имен преподавателей
+    private val getTeacherScheduleByPicked: suspend (id:String) -> TRezult<SchedulerEntity>
 ) : ViewModel() {
 
 
     private val _teachersList = MutableLiveData<List<TeacherSearchEntity>>()
     val teachersList = _teachersList.asLiveData()
+
+    private val _scheduler = MutableLiveData<SchedulerEntity>()
+    val scheduler = _scheduler.asLiveData()
 
     private val _errorEmptyList = MutableLiveData<SearchException>()
     val errorEmptyList = _errorEmptyList.asLiveData()
@@ -87,9 +92,34 @@ class ScheduleViewModel(
         }
     }
 
-    fun teacherIsPicked(teacherSearchEntity: TeacherSearchEntity) {
+     fun teacherIsPicked(id: String) {
+        searchJob?.cancel()
+        _teachersList.mValue = dataTeacherList
+         viewModelScope.launch {
+            getScheduleTeacher(id)
+         }
+    }
+
+    suspend fun getScheduleTeacher(id:String) = withContext(Dispatchers.Main){
+        val newId = id.replaceFirst(Regex(".*?(\\d)"), "$1") //todo (сделать, чтобы все чушь перед id пропадало еще в domain слое или при мапинге
+        val a = getTeacherScheduleByPicked.invoke(newId)
+        when(a){
+            is TRezult.Success -> {
+                Log.d("Cool","${a.data}")
+                _scheduler.mValue = a.data
+            }
+            is TRezult.Error -> {
+                Log.d("Cool","Пизда")
+                _errorEmptyList.mValue = a.exception
+            }
+        }
 
     }
+
+
+
+
+
 
     fun installTypeOfSearch(type: TypeOfButtons) {
         _whatButtonIsPicked.mValue = type
