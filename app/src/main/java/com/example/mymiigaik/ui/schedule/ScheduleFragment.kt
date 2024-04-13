@@ -48,9 +48,28 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
 
 
 
-        viewModel.whatButtonIsPicked.observe(liveDataOwner){
-            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
-        }
+       /* viewModel.whatButtonIsPicked.observe(liveDataOwner){
+           when (viewModel.whatButtonIsPicked){
+               TypeOfButtons.Groups -> {
+
+               }
+
+               TypeOfButtons.Teachers -> {
+
+               }
+
+               TypeOfButtons.Classroom -> {
+
+               }
+
+               TypeOfButtons.Exams -> {
+
+               }
+
+           }
+
+
+        }*/
 
 
         binding.searchGroupButton.setOnClickListener {
