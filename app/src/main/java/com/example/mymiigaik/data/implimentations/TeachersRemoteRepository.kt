@@ -23,9 +23,10 @@ class TeachersRemoteRepository(
     override suspend fun getTeachersFromRemoteRepositoryImpl(name: String): TRezult<List<TeacherSearchEntity>> =
         withContext(Dispatchers.IO){
             return@withContext runCatching {
+                Log.d("Поиск","Запрос к API")
                 val listOfTeachersFromRemoteRepository = getTeachersFromRemoteRepositoryAPI.invoke(name)
 
-                Log.d("АУЕ","${listOfTeachersFromRemoteRepository.get(0)}")
+                Log.d("Поиск","${listOfTeachersFromRemoteRepository.get(0)}")
                 val listOfTRezultTeachers = listOfTeachersFromRemoteRepository.mapNotNull {
                     teacherBeanToTeacherSearchEntityMapper(it)
                 }

@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.SchedulerEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.TeacherSearchEntity
+import com.example.mymiigaik.ui.schedule.model.DayModel
+import com.example.mymiigaik.ui.schedule.model.IShedulerModel
+import com.example.mymiigaik.ui.schedule.model.LessonModel
 import com.example.mymiigaik.utils.LiveDataUtils.asLiveData
 import com.example.mymiigaik.utils.LiveDataUtils.mValue
 import com.example.mymiigaik.utils.SearchException
@@ -25,7 +28,7 @@ class ScheduleViewModel(
     private val _teachersList = MutableLiveData<List<TeacherSearchEntity>>()
     val teachersList = _teachersList.asLiveData()
 
-    private val _scheduler = MutableLiveData<SchedulerEntity>()
+    private val _scheduler = MutableLiveData<MutableList<IShedulerModel>>()
     val scheduler = _scheduler.asLiveData()
 
     private val _errorEmptyList = MutableLiveData<SearchException>()
@@ -61,6 +64,7 @@ class ScheduleViewModel(
 
                 TypeOfButtons.Teachers -> {
                     getAllTeacherByUserInput(inputOfUser)
+
                 }
 
                 TypeOfButtons.Classroom -> {
@@ -78,6 +82,7 @@ class ScheduleViewModel(
     }
 
     suspend fun getAllTeacherByUserInput(teacherName: String) = withContext(Dispatchers.Main) {
+        Log.d("Поиск","Начало поиска")
         val listOfTeacherSearchEntity = getAllTeachersByUserInputUseCase.invoke(teacherName)
         when (listOfTeacherSearchEntity) {
             is TRezult.Success -> {
@@ -102,15 +107,39 @@ class ScheduleViewModel(
 
     suspend fun getScheduleTeacher(id:String) = withContext(Dispatchers.Main){
         val newId = id.replaceFirst(Regex(".*?(\\d)"), "$1") //todo (сделать, чтобы все чушь перед id пропадало еще в domain слое или при мапинге
-        val a = getTeacherScheduleByPicked.invoke(newId)
-        when(a){
+        val shedulerOfTeacher = getTeacherScheduleByPicked.invoke(newId)
+        when(shedulerOfTeacher){
             is TRezult.Success -> {
-                Log.d("Cool","${a.data}")
-                _scheduler.mValue = a.data
+                Log.d("Cool","${shedulerOfTeacher.data}")
+               // _scheduler.mValue = shedulerOfTeacher.data
+                val schedulerListModel: MutableList<IShedulerModel> = mutableListOf()
+
+                shedulerOfTeacher.data.topWeek.days.forEach {
+                    schedulerListModel.add(DayModel(it.dayOfWeek.toString()))
+                    it.lessons.forEach {
+                        schedulerListModel.add(LessonModel(
+                            additionalInfo = it.additionalInfo,
+                            classroom = it.classroom,
+                            day = it.day,
+                            group = it.group,
+                            lesson = it.lesson,
+                            lessonType = it.lessonType,
+                            subject = it.subject,
+                            weekType = it.weekType
+                        ))
+                    }
+                }
+
+                Log.d("Прием,","${schedulerListModel}")
+
+                _scheduler.mValue = schedulerListModel
+
+
+
             }
             is TRezult.Error -> {
                 Log.d("Cool","Пизда")
-                _errorEmptyList.mValue = a.exception
+                _errorEmptyList.mValue = shedulerOfTeacher.exception
             }
         }
 

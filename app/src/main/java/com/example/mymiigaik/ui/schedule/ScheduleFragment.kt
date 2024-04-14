@@ -42,6 +42,12 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
             recyclerViewAdapter.update(teacherItemList)
         }
 
+        //selead pair model
+        //у меня будет selead интерфейс, в котором будет хранится наследники  день, пара, пустота, нет занятий
+        // получаю лист, потом просто все что там есть превращаю в model (лист сиоид интерйеса)
+        // это все происзодит во viewModel
+        // после чего на фрагменте обьекты этого силид ингтефейса преобразую в нужные item для recyclerView
+
         viewModel.scheduler.observe(liveDataOwner){
 
         }

@@ -32,7 +32,7 @@ interface ScheduleAPI {
                     isSafe = !BuildConfig.DEBUG
                 ).get()
                 val retrofit: Retrofit = Retrofit.Builder()
-                    .baseUrl("http://192.168.1.10:8080/api/v1/")
+                    .baseUrl("http://192.168.1.52:8080/api/v1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build()
