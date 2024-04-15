@@ -1,6 +1,7 @@
 package com.example.mymiigaik.ui.schedule
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -10,13 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentScgeduleBinding
+import com.example.mymiigaik.ui.schedule.ItemsForRecyclerView.DayOfWeekItem
+import com.example.mymiigaik.ui.schedule.ItemsForRecyclerView.LessonItem
 import com.example.mymiigaik.ui.schedule.ItemsForRecyclerView.TeacherItem
+import com.example.mymiigaik.ui.schedule.model.DayModel
+import com.example.mymiigaik.ui.schedule.model.DaysOfWeekModel
+import com.example.mymiigaik.ui.schedule.model.LessonModel
 import com.example.mymiigaik.utils.LiveDataUtils.liveDataOwner
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
-
 
 
     private val binding by viewBinding(FragmentScgeduleBinding::bind)
@@ -32,9 +37,12 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
             viewModel.setSearchText(it.toString())
         }
 
-        viewModel.teachersList.observe(liveDataOwner){
+        viewModel.teachersList.observe(liveDataOwner) {
             val teacherItemList = it.map { teacherEntity ->
-                TeacherItem(teacherName = teacherEntity.name, scheduleLinkOfTeacher = teacherEntity.scheduleLink){
+                TeacherItem(
+                    teacherName = teacherEntity.name,
+                    scheduleLinkOfTeacher = teacherEntity.scheduleLink
+                ) {
                     viewModel.teacherIsPicked(teacherEntity.scheduleLink)
                 }
                 //todo доразобраться с нажатием
@@ -48,41 +56,90 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
         // это все происзодит во viewModel
         // после чего на фрагменте обьекты этого силид ингтефейса преобразую в нужные item для recyclerView
 
-        viewModel.scheduler.observe(liveDataOwner){
+        viewModel.scheduler.observe(liveDataOwner) {
 
+            Log.d("Прием", "Сработал оббсерв ")
+            val listOfScheduler: MutableList<RecyclerViewAdapter.Item> = mutableListOf()
+
+            it.forEach {
+                when (it) {
+                    is DayModel -> {
+                        listOfScheduler.add(DayOfWeekItem(nameOfTheDayOfTheWeek = it.day))
+                    }
+
+                    is LessonModel -> {
+                        listOfScheduler.add(
+                            LessonItem(
+                                additionalInfo = it.additionalInfo,
+                                classroom = it.classroom,
+                                day = it.day,
+                                group = it.group,
+                                lesson = it.lesson,
+                                lessonType = it.lessonType,
+                                subject = it.subject,
+                                weekType = it.weekType
+                            )
+                        )
+                    }
+                }
+            }
+
+            Log.d("Прием", "${listOfScheduler}")
+
+
+            recyclerViewAdapter.update(listOfScheduler)
         }
 
 
+        /* viewModel.whatButtonIsPicked.observe(liveDataOwner){
+            when (viewModel.whatButtonIsPicked){
+                TypeOfButtons.Groups -> {
 
-       /* viewModel.whatButtonIsPicked.observe(liveDataOwner){
-           when (viewModel.whatButtonIsPicked){
-               TypeOfButtons.Groups -> {
+                }
 
-               }
+                TypeOfButtons.Teachers -> {
 
-               TypeOfButtons.Teachers -> {
+                }
 
-               }
+                TypeOfButtons.Classroom -> {
 
-               TypeOfButtons.Classroom -> {
+                }
 
-               }
+                TypeOfButtons.Exams -> {
 
-               TypeOfButtons.Exams -> {
+                }
 
-               }
-
-           }
+            }
 
 
-        }*/
+         }*/
 
 
         binding.searchGroupButton.setOnClickListener {
-            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
-            binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
-            binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
-            binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+            binding.searchGroupButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.dark_blue_button_search_miigaik
+                )
+            )
+            binding.searchTeacherButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
+            binding.searchAuditoriumButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
+            binding.searchExamsButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
 
             binding.nameOfSearchTextView.setText(R.string.name_of_search_group)
             binding.editText.setText("") //todo - нажатие на каждую из трех кнопок говорит livedata  - что пора удалить текст и покрасить кнопку в нужные цвета, ставится hint
@@ -96,10 +153,30 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
         }
 
         binding.searchTeacherButton.setOnClickListener {
-            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_grey_text_button_search_miigaik))
-            binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
-            binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
-            binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+            binding.searchGroupButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.dark_grey_text_button_search_miigaik
+                )
+            )
+            binding.searchTeacherButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.dark_blue_button_search_miigaik
+                )
+            )
+            binding.searchAuditoriumButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
+            binding.searchExamsButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
             binding.editText.setText("")
             binding.nameOfSearchTextView.setText(R.string.name_of_search_teacher)
             binding.editText.setHint("Введите преподавателя")
@@ -107,10 +184,30 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
         }
 
         binding.searchAuditoriumButton.setOnClickListener {
-            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
-            binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
-            binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
-            binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
+            binding.searchGroupButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
+            binding.searchTeacherButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
+            binding.searchAuditoriumButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.dark_blue_button_search_miigaik
+                )
+            )
+            binding.searchExamsButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
 
             binding.nameOfSearchTextView.setText(R.string.name_of_search_auditorium)
             binding.editText.setHint("Введите номер аудитории")
@@ -119,10 +216,30 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
         }
 
         binding.searchExamsButton.setOnClickListener {
-            binding.searchGroupButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
-            binding.searchTeacherButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
-            binding.searchAuditoriumButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_button_search_miigaik))
-            binding.searchExamsButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dark_blue_button_search_miigaik))
+            binding.searchGroupButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
+            binding.searchTeacherButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
+            binding.searchAuditoriumButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.grey_button_search_miigaik
+                )
+            )
+            binding.searchExamsButton.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.dark_blue_button_search_miigaik
+                )
+            )
 
             binding.nameOfSearchTextView.setText(R.string.name_of_search_exams)
             binding.editText.setHint("Введите группу")
@@ -130,8 +247,8 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
             binding.editText.setText("")
         }
 
-        viewModel.errorEmptyList.observe(liveDataOwner){
-            val toast = Toast.makeText(requireContext(),"Ничего не найдено", Toast.LENGTH_SHORT,)
+        viewModel.errorEmptyList.observe(liveDataOwner) {
+            val toast = Toast.makeText(requireContext(), "Ничего не найдено", Toast.LENGTH_SHORT)
             toast.show()
         }
 
@@ -143,7 +260,7 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
 
             //if (binding.showOrHideMenuButtonTextView.text == getString(R.string.show_the_menu_schedule))
             //binding.showOrHideMenuButtonTextView.setText(R.string.hide_the_menu_schedule)
-            when (binding.advancedSearchSelection.visibility){
+            when (binding.advancedSearchSelection.visibility) {
                 View.GONE -> binding.advancedSearchSelection.visibility = View.VISIBLE
                 View.VISIBLE -> binding.advancedSearchSelection.visibility = View.GONE
                 //todo() - можно посмотреть что будет если использовать isVisible и обязательно найти отличия

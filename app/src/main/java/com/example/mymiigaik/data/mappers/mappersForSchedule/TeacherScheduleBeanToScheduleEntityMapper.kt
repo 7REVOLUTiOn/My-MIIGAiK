@@ -1,13 +1,11 @@
 package com.example.mymiigaik.data.mappers.mappersForSchedule
 
-import com.example.mymiigaik.data.beans.TeacherBean
 import com.example.mymiigaik.data.beans.TeacherScheduleBean
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.DaysOfWeek
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.LessonEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.ScheduleOfDayEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.ScheduleWeekEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.SchedulerEntity
-import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.TeacherSearchEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.WeekTypes
 import com.example.mymiigaik.utils.logError
 
