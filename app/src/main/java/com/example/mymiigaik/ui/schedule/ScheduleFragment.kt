@@ -13,6 +13,7 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentScgeduleBinding
 import com.example.mymiigaik.ui.schedule.ItemsForRecyclerView.DayOfWeekItem
 import com.example.mymiigaik.ui.schedule.ItemsForRecyclerView.LessonItem
+import com.example.mymiigaik.ui.schedule.ItemsForRecyclerView.NoLessonsItem
 import com.example.mymiigaik.ui.schedule.ItemsForRecyclerView.TeacherItem
 import com.example.mymiigaik.ui.schedule.model.DayModel
 import com.example.mymiigaik.ui.schedule.model.DaysOfWeekModel
@@ -61,13 +62,51 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
             Log.d("Прием", "Сработал оббсерв ")
             val listOfScheduler: MutableList<RecyclerViewAdapter.Item> = mutableListOf()
 
-            it.forEach {
+
+            for (i in 0 until it.size){
+                when (val item = it[i]) {
+                    is DayModel -> {
+                        if (i !=0){
+                                if (it[i-1] is DayModel){
+                                    listOfScheduler.add(NoLessonsItem())
+                            }
+                        }
+                        listOfScheduler.add(DayOfWeekItem(nameOfTheDayOfTheWeek = item.day)) //todo - когда нибудь переделать, но пока можно оставить
+                        if (i == it.size-1){
+                            listOfScheduler.add(NoLessonsItem())
+                        }
+                    }
+                    is LessonModel -> {
+                        listOfScheduler.add(
+                            LessonItem(
+                                additionalInfo = item.additionalInfo,
+                                classroom = item.classroom,
+                                day = item.day,
+                                group = item.group,
+                                lesson = item.lesson,
+                                lessonType = item.lessonType,
+                                subject = item.subject,
+                                weekType = item.weekType
+                            )
+                        )
+
+                            //todo Надо переделать cardView, чтобы они нормально взаимодействовали
+                            //todo сделать, так чтобы когда переключаешься на другую вкладку (новости или профиль) у меня полностью сбрасывался RV
+                    }
+                }
+            }
+
+
+
+           /* it.forEach {
                 when (it) {
                     is DayModel -> {
                         listOfScheduler.add(DayOfWeekItem(nameOfTheDayOfTheWeek = it.day))
                     }
 
                     is LessonModel -> {
+
+
                         listOfScheduler.add(
                             LessonItem(
                                 additionalInfo = it.additionalInfo,
@@ -80,9 +119,11 @@ class ScheduleFragment : Fragment(R.layout.fragment_scgedule) {
                                 weekType = it.weekType
                             )
                         )
+
+
                     }
                 }
-            }
+            }*/
 
             Log.d("Прием", "${listOfScheduler}")
 

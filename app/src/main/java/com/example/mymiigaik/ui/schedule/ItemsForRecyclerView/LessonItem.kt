@@ -14,7 +14,7 @@ class LessonItem(
     private val lessonType: String?,
     private val subject: String?,
     private val weekType: String?
-): RecyclerViewAdapter.Item {
+) : RecyclerViewAdapter.Item {
 
 
     override fun getItemViewType(): Int = R.layout.lesson_item
@@ -22,10 +22,11 @@ class LessonItem(
     override fun onBindViewHolder(holder: RecyclerViewAdapter.Holder, position: Int) {
         holder.itemView.apply {
             val binding = LessonItemBinding.bind(this)
-            binding.nameOfLesson.text = lesson
+            binding.nameOfLesson.text = subject
             binding.typeOfLesson.text = lessonType
             binding.classroomName.text = classroom
             binding.nameOfGroup.text = group
+            binding.LessonNumber.text = lesson
         }
 
     }
