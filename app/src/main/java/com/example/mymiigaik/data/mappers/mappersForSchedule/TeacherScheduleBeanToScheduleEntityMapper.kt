@@ -6,7 +6,7 @@ import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.Le
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.ScheduleOfDayEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.ScheduleWeekEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.SchedulerEntity
-import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.WeekTypes
+import com.example.mymiigaik.domain.entities.scheduleEntitise.WeekTypes
 import com.example.mymiigaik.utils.logError
 
 class TeacherScheduleBeanToScheduleEntityMapper {
@@ -99,7 +99,8 @@ class TeacherScheduleBeanToScheduleEntityMapper {
         }
         val scheduleOfСуббота = ScheduleOfDayEntity(listLessonOfSaturday,DaysOfWeek.Суббота)
 
-        val topSchedule = ScheduleWeekEntity(listOf(scheduleOfПонедельник,scheduleOfВторник,scheduleOfСреда,scheduleOfThisday,scheduleOfПятница,scheduleOfСуббота),WeekTypes.Top)
+        val topSchedule = ScheduleWeekEntity(listOf(scheduleOfПонедельник,scheduleOfВторник,scheduleOfСреда,scheduleOfThisday,scheduleOfПятница,scheduleOfСуббота),
+            WeekTypes.Top)
 
 
         ////////////////////////////////////
@@ -188,7 +189,8 @@ class TeacherScheduleBeanToScheduleEntityMapper {
         }
         val scheduleOfСубботаLow = ScheduleOfDayEntity(listLessonOfSaturdayLow,DaysOfWeek.Суббота)
 
-        val ScheduleLow = ScheduleWeekEntity(listOf(scheduleOfПонедельникLow,scheduleOfВторникLow,scheduleOfWednesdayLow,scheduleOfThisdayLow,scheduleOfПятницаLow,scheduleOfСубботаLow),WeekTypes.Low)
+        val ScheduleLow = ScheduleWeekEntity(listOf(scheduleOfПонедельникLow,scheduleOfВторникLow,scheduleOfWednesdayLow,scheduleOfThisdayLow,scheduleOfПятницаLow,scheduleOfСубботаLow),
+            WeekTypes.Low)
 
 
        SchedulerEntity(topSchedule, ScheduleLow)

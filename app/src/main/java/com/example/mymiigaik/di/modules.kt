@@ -43,7 +43,7 @@ val repositories = module {
         val getTeacherSchedule = get<ITeacherRemoteRepository>()
         ScheduleViewModel(
             getAllTeachersByUserInputUseCase = getAllTeachersByUserInputUseCase::getTeachersFromRemoteRepositoryImpl,
-            getTeacherScheduleByPicked = getTeacherSchedule::getTeacherScheduleFromRemoteRepository
+            getTeacherScheduleByPickedUseCase = getTeacherSchedule::getTeacherScheduleFromRemoteRepository
         )
     }
 

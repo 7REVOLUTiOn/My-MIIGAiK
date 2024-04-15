@@ -11,7 +11,7 @@ class TeactherBeanToTeacherSeachEntity {
     private fun TeacherBean.toEntity() = runCatching {
         TeacherSearchEntity(
             name = teacherName,
-            scheduleLink = scheduleLink
+            scheduleLink = scheduleLink.replaceFirst(Regex(".*?(\\d)"), "$1")
         )
     }.getOrElse {
         it.logError()

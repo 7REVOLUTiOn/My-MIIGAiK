@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mymiigaik.domain.entities.scheduleEntitise.classromEntities.ClassroomSearchEntities
+import com.example.mymiigaik.domain.entities.scheduleEntitise.lessonsEntites.GroupSearchEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.SchedulerEntity
 import com.example.mymiigaik.domain.entities.scheduleEntitise.teacherEntities.TeacherSearchEntity
 import com.example.mymiigaik.ui.schedule.model.DayModel
@@ -21,7 +23,9 @@ import kotlinx.coroutines.withContext
 
 class ScheduleViewModel(
     private val getAllTeachersByUserInputUseCase: suspend (name: String) -> TRezult<List<TeacherSearchEntity>>, // Запрос на получение листа имен преподавателей
-    private val getTeacherScheduleByPicked: suspend (id:String) -> TRezult<SchedulerEntity>
+    private val getTeacherScheduleByPickedUseCase: suspend (id:String) -> TRezult<SchedulerEntity>,
+    private val getAllGroupsByUserInputUseCase: suspend (name:String) -> TRezult<List<GroupSearchEntity>>,
+    private val getAllClassroomsByUserInputUseCase: suspend (name:String) -> TRezult<List<ClassroomSearchEntities>>
 ) : ViewModel() {
 
 
@@ -64,7 +68,6 @@ class ScheduleViewModel(
 
                 TypeOfButtons.Teachers -> {
                     getAllTeacherByUserInput(inputOfUser)
-
                 }
 
                 TypeOfButtons.Classroom -> {
@@ -80,6 +83,10 @@ class ScheduleViewModel(
 
         }
     }
+
+
+    suspend fun
+
 
     suspend fun getAllTeacherByUserInput(teacherName: String) = withContext(Dispatchers.Main) {
         Log.d("Поиск","Начало поиска")
@@ -101,17 +108,15 @@ class ScheduleViewModel(
         searchJob?.cancel()
         _teachersList.mValue = dataTeacherList
          viewModelScope.launch {
-            getScheduleTeacher(id)
+            getScheduleOfTeacher(id)
          }
     }
 
-    suspend fun getScheduleTeacher(id:String) = withContext(Dispatchers.Main){
-        val newId = id.replaceFirst(Regex(".*?(\\d)"), "$1") //todo (сделать, чтобы все чушь перед id пропадало еще в domain слое или при мапинге
-        val shedulerOfTeacher = getTeacherScheduleByPicked.invoke(newId)
+    suspend fun getScheduleOfTeacher(teacherId:String) = withContext(Dispatchers.Main){
+        val shedulerOfTeacher = getTeacherScheduleByPickedUseCase.invoke(teacherId)
         when(shedulerOfTeacher){
             is TRezult.Success -> {
                 Log.d("Cool","${shedulerOfTeacher.data}")
-               // _scheduler.mValue = shedulerOfTeacher.data
                 val schedulerListModel: MutableList<IShedulerModel> = mutableListOf()
 
                 shedulerOfTeacher.data.topWeek.days.forEach {
@@ -158,7 +163,6 @@ class ScheduleViewModel(
     companion object {
 
         private const val SEARCH_DELAY = 700L
-
 
     }
 
