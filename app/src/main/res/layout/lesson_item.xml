@@ -1,102 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    android:layout_marginRight="0dp">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 
-        <TextView
-            android:id="@+id/LessonNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="3-я Пара"
-            android:textSize="18sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="2dp"
-            android:textColor="@color/dark_blue_button_search_miigaik"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-
-        <TextView
-            android:id="@+id/timeOfTheLesson"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="12:50-14:20"
-            android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@id/LessonNumber"
-            app:layout_constraintStart_toStartOf="@id/LessonNumber"/>
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="100dp"
+    <TextView
+        android:id="@+id/LessonNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="3-я Пара"
+        android:textSize="18sp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/edit_background">
+        android:layout_marginStart="2dp"
+        android:textColor="@color/dark_blue_button_search_miigaik"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/timeOfTheLesson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12:50-14:20"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/LessonNumber"
+        app:layout_constraintStart_toEndOf="@id/LessonNumber"
+        android:layout_marginLeft="5dp"/>
 
 
-        <TextView
-            android:id="@+id/nameOfLesson"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.086"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Математика" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/grey_button_search_miigaik"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/LessonNumber"
+        app:cardCornerRadius="15dp"
+        android:layout_margin="5dp">
 
 
-        <TextView
-            android:id="@+id/typeOfLesson"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/nameOfLesson"
-            app:layout_constraintTop_toBottomOf="@id/nameOfLesson"
-            tools:text="Практика" />
-
-        <TextView
-            android:id="@+id/classroomName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            app:layout_constraintBottom_toBottomOf="@id/typeOfLesson"
-            app:layout_constraintStart_toEndOf="@id/typeOfLesson"
-            tools:text="Аудитория 409" />
-
-        <TextView
-            android:id="@+id/nameOfGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="15dp"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@id/nameOfLesson"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="ГФ-2023-ГФ-ПГинж.г-4с" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/nameOfLesson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.374"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/nameOfGroup"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Математика" />
+
+            <TextView
+                android:id="@+id/typeOfLesson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/nameOfLesson"
+                app:layout_constraintTop_toBottomOf="@id/nameOfLesson"
+                tools:text="Практика" />
+
+            <TextView
+                android:id="@+id/classroomName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                app:layout_constraintBottom_toBottomOf="@id/typeOfLesson"
+                app:layout_constraintStart_toEndOf="@id/typeOfLesson"
+                tools:text="Аудитория 409" />
+
+            <TextView
+                android:id="@+id/nameOfGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/nameOfLesson"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/nameOfLesson"
+                android:layout_marginLeft="5dp"
+                tools:text="ГФ-2023-ГФ-ПГинж.г-4с" />
 
 
-</androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+

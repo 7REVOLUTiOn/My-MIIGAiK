@@ -27,7 +27,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfMonday = ScheduleOfDayEntity(listLessonOfMonday,DaysOfWeek.Monday)
+        val scheduleOfПонедельник = ScheduleOfDayEntity(listLessonOfMonday,DaysOfWeek.Понедельник)
 
         val listLessonOfTuesday: List<LessonEntity> = top.tuesday.mapNotNull {
             LessonEntity(
@@ -41,7 +41,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfTuesday = ScheduleOfDayEntity(listLessonOfTuesday,DaysOfWeek.Tuesday)
+        val scheduleOfВторник = ScheduleOfDayEntity(listLessonOfTuesday,DaysOfWeek.Вторник)
 
         val listLessonOfWednesday: List<LessonEntity> = top.wednesday.mapNotNull {
             LessonEntity(
@@ -55,7 +55,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfWednesday = ScheduleOfDayEntity(listLessonOfWednesday,DaysOfWeek.Wednesday)
+        val scheduleOfСреда = ScheduleOfDayEntity(listLessonOfWednesday,DaysOfWeek.Среда)
 
         val listLessonOfThursday: List<LessonEntity> = top.thursday.mapNotNull {
             LessonEntity(
@@ -69,7 +69,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfThisday = ScheduleOfDayEntity(listLessonOfThursday,DaysOfWeek.Thursday)
+        val scheduleOfThisday = ScheduleOfDayEntity(listLessonOfThursday,DaysOfWeek.Чертверг)
 
         val listLessonOfFriday: List<LessonEntity> = top.friday.mapNotNull {
             LessonEntity(
@@ -83,7 +83,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfFriday = ScheduleOfDayEntity(listLessonOfFriday,DaysOfWeek.Friday)
+        val scheduleOfПятница = ScheduleOfDayEntity(listLessonOfFriday,DaysOfWeek.Пятница)
 
         val listLessonOfSaturday: List<LessonEntity> = top.saturday.mapNotNull {
             LessonEntity(
@@ -97,9 +97,9 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfSaturday = ScheduleOfDayEntity(listLessonOfSaturday,DaysOfWeek.Saturday)
+        val scheduleOfСуббота = ScheduleOfDayEntity(listLessonOfSaturday,DaysOfWeek.Суббота)
 
-        val topSchedule = ScheduleWeekEntity(listOf(scheduleOfMonday,scheduleOfTuesday,scheduleOfWednesday,scheduleOfThisday,scheduleOfFriday,scheduleOfSaturday),WeekTypes.Top)
+        val topSchedule = ScheduleWeekEntity(listOf(scheduleOfПонедельник,scheduleOfВторник,scheduleOfСреда,scheduleOfThisday,scheduleOfПятница,scheduleOfСуббота),WeekTypes.Top)
 
 
         ////////////////////////////////////
@@ -116,7 +116,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfMondayLow = ScheduleOfDayEntity(listLessonOfMondayLow,DaysOfWeek.Monday)
+        val scheduleOfПонедельникLow = ScheduleOfDayEntity(listLessonOfMondayLow,DaysOfWeek.Понедельник)
 
         val listLessonOfTuesdayLow: List<LessonEntity> = low.tuesday.mapNotNull {
             LessonEntity(
@@ -130,7 +130,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfTuesdayLow = ScheduleOfDayEntity(listLessonOfTuesdayLow,DaysOfWeek.Tuesday)
+        val scheduleOfВторникLow = ScheduleOfDayEntity(listLessonOfTuesdayLow,DaysOfWeek.Вторник)
 
         val listLessonOfWednesdayLow: List<LessonEntity> = low.wednesday.mapNotNull {
             LessonEntity(
@@ -144,7 +144,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfWednesdayLow = ScheduleOfDayEntity(listLessonOfWednesdayLow,DaysOfWeek.Thursday)
+        val scheduleOfWednesdayLow = ScheduleOfDayEntity(listLessonOfWednesdayLow,DaysOfWeek.Чертверг)
 
         val listLessonOfThursdayLow: List<LessonEntity> = low.thursday.mapNotNull {
             LessonEntity(
@@ -158,7 +158,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfThisdayLow = ScheduleOfDayEntity(listLessonOfThursdayLow,DaysOfWeek.Wednesday)
+        val scheduleOfThisdayLow = ScheduleOfDayEntity(listLessonOfThursdayLow,DaysOfWeek.Среда)
 
         val listLessonOfFridayLow: List<LessonEntity> = low.friday.mapNotNull {
             LessonEntity(
@@ -172,7 +172,7 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfFridayLow = ScheduleOfDayEntity(listLessonOfFridayLow,DaysOfWeek.Friday)
+        val scheduleOfПятницаLow = ScheduleOfDayEntity(listLessonOfFridayLow,DaysOfWeek.Пятница)
 
         val listLessonOfSaturdayLow: List<LessonEntity> = low.saturday.mapNotNull {
             LessonEntity(
@@ -186,9 +186,9 @@ class TeacherScheduleBeanToScheduleEntityMapper {
                 weekType = it?.weekType
             )
         }
-        val scheduleOfSaturdayLow = ScheduleOfDayEntity(listLessonOfSaturdayLow,DaysOfWeek.Saturday)
+        val scheduleOfСубботаLow = ScheduleOfDayEntity(listLessonOfSaturdayLow,DaysOfWeek.Суббота)
 
-        val ScheduleLow = ScheduleWeekEntity(listOf(scheduleOfMondayLow,scheduleOfTuesdayLow,scheduleOfWednesdayLow,scheduleOfThisdayLow,scheduleOfFridayLow,scheduleOfSaturdayLow),WeekTypes.Low)
+        val ScheduleLow = ScheduleWeekEntity(listOf(scheduleOfПонедельникLow,scheduleOfВторникLow,scheduleOfWednesdayLow,scheduleOfThisdayLow,scheduleOfПятницаLow,scheduleOfСубботаLow),WeekTypes.Low)
 
 
        SchedulerEntity(topSchedule, ScheduleLow)
